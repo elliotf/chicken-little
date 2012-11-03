@@ -2,6 +2,9 @@
   "author": "",
   "name": "reruns",
   "version": "0.0.0",
+  "bin": {
+    "chicken": "./bin/chicken"
+  }
   "devDependencies": {
     "chai": "~1.2.0",
     "rimraf": "~2.0.2",
