@@ -16,25 +16,14 @@ if (!program.args.length || !program.command) {
   return program.help();
 }
 
-var running = false
-  , needed  = true  // run once on start
-;
-
 program.args.forEach(function(path){
-  doorman(path, trigger); // TODO: doorman should support taking an array of paths
+  doorman(path, run); // TODO: doorman should support taking an array of paths
 });
 
+var running = false;
+
 // TODO: doorman should call the callback with a list of path changes
-function trigger() {
-  needed = true;
-
-  if (running) return;
-
-  run();
-}
-
 function run(){
-  if (!needed) return;
   if (running) return;
 
   running = true;
@@ -48,9 +37,5 @@ function run(){
 
   child.on('exit', function(code){
     running = false;
-
-    process.nextTick(function(){
-      run();
-    });
   });
 }
