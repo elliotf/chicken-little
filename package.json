@@ -1,6 +1,8 @@
 {
   "author": "Elliot Foster <efoster@firetaco.com>",
   "name": "chicken-little",
+  "keywords": ["notification", "filesystem", "testing", "testrunner", "test"],
+  "description": "A utility script to re-run a command on filesystem changes",
   "version": "0.1.0",
   "bin": {
     "chicken": "./bin/chicken"
