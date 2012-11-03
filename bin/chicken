@@ -1,7 +1,56 @@
 #!/usr/bin/env node
 
-var doorman = require('./lib/doorman')
+var program = require('commander')
+  , spawn   = require('child_process')
+  , doorman = require('./lib/doorman')
 ;
 
+// TODO: support an ignore mask/regex/pattern/etc
+program
+  .usage('[options] <file ...>')
+  .option('-c, --command [cmd]', 'Command to run on file changes')
+  .parse(process.argv)
+;
 
-// read args in
+if (!program.args.length || !program.command) {
+  return program.help();
+}
+
+var running = false
+  , needed  = true  // run once on start
+;
+
+program.args.forEach(function(path){
+  doorman(path, trigger); // TODO: doorman should support taking an array of paths
+});
+
+// TODO: doorman should call the callback with a list of path changes
+function trigger() {
+  needed = true;
+
+  if (running) return;
+
+  run();
+}
+
+function run(){
+  if (!needed) return;
+  if (running) return;
+
+  running = true;
+  needed  = false;
+
+  var child = spawn.spawn(
+    'bash'
+    , ['-c', program.command]
+    , { stdio: 'inherit' }
+  );
+
+  child.on('exit', function(code){
+    running = false;
+
+    process.nextTick(function(){
+      run();
+    });
+  });
+}
