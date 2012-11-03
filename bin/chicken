@@ -2,7 +2,7 @@
 
 var program = require('commander')
   , spawn   = require('child_process')
-  , doorman = require('./lib/doorman')
+  , doorman = require('../lib/doorman')
 ;
 
 // TODO: support an ignore mask/regex/pattern/etc
