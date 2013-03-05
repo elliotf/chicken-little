@@ -3,7 +3,7 @@
   "name": "chicken-little",
   "keywords": ["notification", "filesystem", "testing", "testrunner", "test"],
   "description": "A utility script to re-run a command on filesystem changes",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "bin": {
     "chicken": "./bin/chicken"
   },
